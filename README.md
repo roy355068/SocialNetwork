@@ -1,7 +1,8 @@
 #
 ## Social Network Forum
-------
-###Technologies
+--------
+### Technologies
+
 - Python 3.5.2
 - Django 1.10.5
 - Bootstrap 3.3.7
