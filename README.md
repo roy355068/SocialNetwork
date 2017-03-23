@@ -9,4 +9,4 @@ The goal in hw7 is to refine the social network website based on previous work i
 New feature is email verification.
 Also, in this last assignment, I deployed my work to EC2 service and made the website public.
 
-The codes of register function and most of the templates are referenced to the example codes posted on github by Professor Eppinger.
+The codes of register function and most of the templates are referenced to the example codes posted on github by Professor Eppinger.# SocialNetwork
