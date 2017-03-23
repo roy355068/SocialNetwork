@@ -1,0 +1,83 @@
+{% extends "socialnetwork/base.html"%}
+
+{% block content %}
+<div class>
+
+    <h2 class="bg-primary">User profile of "{{user}}"</h2>
+    <table>
+        <tr>
+            <td>
+                <div class="bg-info">
+                    <h3>Last Name: {{curr_user.last_name}}</h3>
+                    <h3>First Name: {{curr_user.first_name}}</h3>
+                    <h3>Age: {{user_profile.age}}</h3>
+                    <h3>Bio: {{user_profile.bio}}</h3>
+                </div>
+            <!-- </td>
+            <td> -->
+                {% if user_profile.picture %}
+                    <img src="{% url 'picture' curr_user %}" width="100px">
+                    <br>
+                {% endif%}
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <a href="{% url 'home' %}"><button class="btn btn-success btn-md">Main Page</button></a>
+    <a href="{% url 'logout' %}"><button class="btn btn-warning btn-md">Logout</button></a>
+
+    <!-- Form of Follow/Unfollow Buttons -->
+    <form method="post">
+        {% if follow_stat is True%}
+            <button type="submit" class="btn btn-info btn-md" name="follow" value="follow">Follow</button>
+        {% elif follow_stat is False%}
+            <button type="submit" class="btn btn-info btn-md" name="follow" value="unfollow">Unfollow</button>
+        {% endif %}
+        {% csrf_token %}
+    </form>
+
+    <div class="sub-title h3"> Posts by user "{{user}}" </div>
+    {% for post in posts %}
+    <div class="bg-info h3">
+        {% if post.user in pictures %}
+                    <img src="{% url 'picture' post.user %}" alt="no pic"  width="60px">
+        {% else %}
+            <img src="http://simpleicon.com/wp-content/uploads/smile.png" alt="no pic"  width="60px">
+        
+        {% endif %}
+        {{post.content}}
+        <span class="details">
+            ( posted at {{ post.created_at }})
+        </span>
+        <br/>
+        <hr/>
+                
+    </div>
+    <table>
+        <tr>
+            <form method="post" action="{% url 'add-comment' post.id %}">
+                <td><button type="submit" id="comment_button" class="btn btn-success btn-md"> Comment on {{post.user}}'s post</button></td>
+                <td><textarea id="comment{{post.id}}" class="comment-box" rows="4" cols="80" name="content" maxlength="160"></textarea></td>
+                {% csrf_token %}
+            </form>
+        </tr>
+    </table>
+            {% for com in comments%}
+            <div class='bg-success text-center'>
+                {% if com.commented_on == post %}
+                    {% if com.user in pictures %}
+                        <img src="{% url 'picture' com.user %}" alt="no pic"  width="40px">
+                    {% else %}
+                        <img src="http://simpleicon.com/wp-content/uploads/smile.png" alt="no pic"  width="40px">
+                    {% endif %}
+                    {{com.content}} (at {{com.created_at}} by {{com.user}})
+                    
+                {% endif %}
+            </div>
+            <br/>
+            
+            {% endfor %}
+            <hr/>
+        {% endfor %}
+
+{% endblock %}

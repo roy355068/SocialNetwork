@@ -1,0 +1,47 @@
+{% extends "socialnetwork/base.html"%}
+
+{% block title %}
+
+    <div class="bg-primary h2">
+        Social Network Registration Form
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% for error in errors %}
+        <p class="text-danger text-center h3 ">
+            {{ error }}
+        </p>
+    {% endfor %}
+    <div class="container">
+        
+        <form method="post" action="{% url 'register' %}" class="h3 text-center ">
+            <div class="form-group">
+            <table>
+                <!-- {% for field in form.visible_fields%}
+                <tr>    
+                    <td>{{field.label_tag}}</td>
+                    <td>{{field}}</td>
+
+                    <td class="text-danger">
+                     {% for error in field.errors %} {{error}} {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %} -->
+                {{form}}
+                
+            </table>
+            </div>
+
+            <button class="btn btn-primary btn-md" type="submit" value="Register">Register</button>
+            
+            {% csrf_token %}
+
+        </form>
+            <div class="text-center">
+            <a href="/socialnetwork/"><button class="btn btn-success btn-md">Back</button></a>
+        </div>
+    </div>
+{% endblock %}
+
+
